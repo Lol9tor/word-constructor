@@ -4,7 +4,7 @@ class WordConstruct extends Component {
     static propTypes = {};
 
     render() {
-        return <div>Here will be our constructor!</div>
+        return <div>Here will our constructor!</div>
     }
 }
 
