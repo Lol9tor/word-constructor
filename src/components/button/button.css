@@ -1,0 +1,22 @@
+.button{
+    margin: 5px;
+    border-radius: .15em;
+    border: none;
+    font-weight: normal;
+    font-size: 12px;
+    text-transform: uppercase;
+    padding: .6em 2em .6em 2em;
+    letter-spacing: .1em;
+    outline: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 250ms ease, color 250ms ease;
+    background-color: #18cd4d;
+    color: #fff;
+}
+
+.button:hover{
+    background-color:rgba(24, 205, 77, 0.7);
+}

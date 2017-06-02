@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router-dom';
-import styles from './wordConstruct.css'
+import styles from './wordConstruct.css';
+import Button from '../../components/button'
 
 class WordConstruct extends Component {
     static propTypes = {};
@@ -12,10 +13,11 @@ class WordConstruct extends Component {
 
     render() {
         const word = "Колобординация";
-        return <div><h1 className={styles.greeting}>Welcome to Word - Constructor!</h1>
+        return <div>
             <Link to={'/admin'}>
                 <button className={styles.button}> Go to AdminPanel</button>
             </Link>
+            <h1 className={styles.greeting}>Welcome to Word - Constructor!</h1>
             <div className={styles.wrapper}>
                 <div className = {styles.block}>
                 {word.split("").map(function (el, index) {
@@ -24,9 +26,10 @@ class WordConstruct extends Component {
                     </div>
                 })}
                 </div>
+                <Button>Check word</Button>
+                <Button>Shake letter</Button>
             </div>
-            <button>Check word</button>
-            <button>Shake letter</button>
+
         </div>
     }
 }
