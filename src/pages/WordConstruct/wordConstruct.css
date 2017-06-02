@@ -1,42 +1,24 @@
 .wrapper {
-    width: 900px;
-    height: 150px;
-    position: absolute;
-    top: 30%;
-    left: 0;
-    overflow: auto;
+    margin-top: 200px;
+    text-align: center;
 }
 
 .block {
-    width: 800px;
-    height: 100px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    margin: auto;
+margin-bottom: 50px;
 }
 
 
 .letter{
-    position:relative;
-    float: left;
     margin: 5px;
-    padding: 5px;
-    font-size: 50px;
+    padding: 5px 10px;
+    font-size: 32px;
     display: inline-block;
     border: 1px solid black;
     border-radius: 3px;
     text-align: center;
 }
 
-button{
-    margin: 0 10px;
-}
 
 .greeting{
-    position: absolute;
-    top: 10%;
-    left: 100px;
+    text-align: center;
 }
