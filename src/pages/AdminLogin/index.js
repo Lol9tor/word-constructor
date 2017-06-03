@@ -15,8 +15,8 @@ class AdminLogin extends Component {
             <form id="login">
                 <h1>Форма входа</h1>
                 <fieldset id="inputs">
-                    <input id="username" className = {styles.inputStyle } type="text" placeholder="Логин" required/>
-                        <input id="password" className = {styles.inputStyle } type="password" placeholder="Пароль" required/>
+                    <input id="username" className = {styles.inputStyle} type="text" placeholder="Логин" required/>
+                    <input id="password" className = {styles.inputStyle} type="password" placeholder="Пароль" required/>
                 </fieldset>
                 <fieldset id="actions">
                     <Button type="submit" id="submit" value="ВОЙТИ"/>
