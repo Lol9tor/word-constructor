@@ -1,0 +1,39 @@
+.wordCollectionHeader{
+    margin-top: 50px;
+}
+
+.wordCollectionWrap{
+    border: 1px solid black;
+    border-radius: 3px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.word{
+    margin: 5px;
+    padding: 5px 10px;
+    font-size: 32px;
+    display: inline-block;
+    /*border: 1px solid black;
+    border-radius: 2px;*/
+    text-align: center;
+}
+
+.greeting{
+    text-align: center;
+}
+
+.imgCloseWrap{
+z-index: 100;
+}
+.closeImg{
+    position: relative;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+}
+
+

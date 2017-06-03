@@ -14,9 +14,13 @@ class WordConstruct extends Component {
     render() {
         const word = "Колобординация";
         return <div>
-            <Link to={'/admin'}>
-                <button className={styles.button}> Go to AdminPanel</button>
+            <Link to={'/admin/login'}>
+                <Button>Go to login</Button>
             </Link>
+            <Link to={'/admin'}>
+                <Button>Go to admin</Button>
+            </Link>
+
             <h1 className={styles.greeting}>Welcome to Word - Constructor!</h1>
             <div className={styles.wrapper}>
                 <div className = {styles.block}>
@@ -29,7 +33,6 @@ class WordConstruct extends Component {
                 <Button>Check word</Button>
                 <Button>Shake letter</Button>
             </div>
-
         </div>
     }
 }
