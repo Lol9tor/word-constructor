@@ -20,3 +20,8 @@
 .button:hover{
     background-color:rgba(24, 205, 77, 0.7);
 }
+
+.button:disabled{
+    background-color:rgba(24, 205, 77, 0.5);
+    cursor: not-allowed;
+}

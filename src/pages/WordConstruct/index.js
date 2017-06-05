@@ -5,6 +5,9 @@ import Button from '../../components/button'
 
 class WordConstruct extends Component {
     static propTypes = {};
+    state = {
+      word: "FRUSTRATION"
+    };
 
     goToAdmin = () => {
 
@@ -12,7 +15,6 @@ class WordConstruct extends Component {
 
 
     render() {
-        const word = "Колобординация";
         return <div>
             <Link to={'/admin/login'}>
                 <Button>Go to login</Button>
@@ -24,7 +26,7 @@ class WordConstruct extends Component {
             <h1 className={styles.greeting}>Welcome to Word - Constructor!</h1>
             <div className={styles.wrapper}>
                 <div className = {styles.block}>
-                {word.split("").map(function (el, index) {
+                {this.state.word.split("").map(function (el, index) {
                     return <div key={index} className={styles.letter}>
                         {el}
                     </div>
