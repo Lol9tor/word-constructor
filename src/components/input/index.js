@@ -12,7 +12,8 @@ class Input extends Component {
     handleChange = (e)=> {
         const {value} = e.currentTarget; // это === value =  e.currentTarget.value
         if(typeof this.props.onChange === "function"){
-            this.props.onChange(value);
+            this.props.onChange(value, name);
+            console.dir(e.currentTarget);
         }
     };
 
@@ -21,8 +22,11 @@ class Input extends Component {
         this.props.onBlur(value)
     };
 
+    keyPress = (e)=>{
+      this.props.onKeyPress(e)
+    };
+
     render() {
-        console.log(this.props.type);
         return <div>
 
             <input
@@ -30,10 +34,11 @@ class Input extends Component {
                 className={styles.inputStyle}
                 onChange={this.handleChange}
                 onBlur={this.blurChange}
+                onKeyPress={this.keyPress}
+                name={this.props.name}
                 />
 
         </div>
-
     }
 }
 

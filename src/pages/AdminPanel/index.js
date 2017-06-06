@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import styles from './adminPanel.css';
 import Input from '../../components/input';
 import Button from '../../components/button';
+import {setItem, getItem} from '../../utils/storage'
 
 function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
@@ -11,7 +12,7 @@ function isNumeric(n) {
 class AdminPanel extends Component {
     static propTypes = {};
     state = {
-        moderationWords: JSON.parse(localStorage.getItem("moderationWords")) || [],
+        moderationWords:getItem("moderationWords") || [],
         words: ["алиса", "денди", "рубик"],
         currentWord: "",
         count: 0
@@ -23,13 +24,19 @@ class AdminPanel extends Component {
             return false;
         }
         let newArray = arr.concat(this.state.currentWord);
-        localStorage.setItem("moderationWords", JSON.stringify(newArray));
+        setItem("moderationWords",newArray);
         let input = document.querySelector("input");
         input.value = "";
         this.setState({
             currentWord: "",
             moderationWords: newArray
         });
+    };
+
+    handleKeyPress = (event) => {
+        if(event.charCode === 13){
+            this.handleClick();
+        }
     };
 
     wordChange = (text)=> {
@@ -50,6 +57,9 @@ class AdminPanel extends Component {
             </Link>
             <Link to={'/admin/login'}>
                 <Button>Go to login</Button>
+            </Link>
+            <Link to={'/registration'}>
+                <Button>Go to Registration</Button>
             </Link>
 
             <h1 className={styles.greeting}>
@@ -78,8 +88,9 @@ class AdminPanel extends Component {
                     <Input type="text"
                            className={styles.input}
                            onBlur={this.wordChange}
+                           onChange={this.wordChange}
+                           onKeyPress={this.handleKeyPress}
                     />
-                    <div>{this.state.currentWord}</div>
                     <Button onClick={this.handleClick}
                             isDisabled={this.checkDisabled()}>
                         Add

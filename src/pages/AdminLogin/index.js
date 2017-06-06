@@ -6,10 +6,20 @@ import Button from '../../components/button'
 
 class AdminLogin extends Component {
     static propTypes = {};
+    state = {
+        user: {
+            email: "",
+            password: ""
+
+        }
+    };
+
+    handleChange = (text)=> {
+
+    };
 
     render() {
-        let email = null;
-        let password = null;
+
 
         return <div className={styles.adminLogin}>
             <Link to={'/'}>
@@ -18,12 +28,16 @@ class AdminLogin extends Component {
             <Link to={'/admin'}>
                 <Button>Go to admin</Button>
             </Link>
+            <Link to={'/registration'}>
+                <Button>Go to Registration</Button>
+            </Link>
 
             <form id="login">
                 <h1>Login</h1>
-                <input id="username" className={styles.inputStyle} type="text" placeholder="Enter your login" required/>
+                <input id="username" name="email" className={styles.inputStyle} type="text" placeholder="Enter your login" required/>
                 <br/>
-                <input id="password" className={styles.inputStyle} type="password" placeholder="Enter your password" required/>
+                <input id="password" name="password" className={styles.inputStyle} type="password" placeholder="Enter your password"
+                       required/>
                 <br/>
                 <Button type="submit" id="submit" value="ВОЙТИ"> Enter</Button>
             </form>
