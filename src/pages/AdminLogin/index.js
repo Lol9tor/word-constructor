@@ -32,7 +32,7 @@ class AdminLogin extends Component {
                 <Button>Go to Registration</Button>
             </Link>
 
-            <form id="login">
+            <form>
                 <h1>Login</h1>
                 <input id="username" name="email" className={styles.inputStyle} type="text" placeholder="Enter your login" required/>
                 <br/>

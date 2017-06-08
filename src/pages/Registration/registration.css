@@ -1,0 +1,17 @@
+.flexContainer{
+    display: flex;
+    padding: 15px 5px 15px 5px;
+    margin: 0 0 10px 0;
+    width: 400px; /* 353 + 2 + 45 = 400 */
+    font-size: 20px;
+    justify-content: space-between;
+}
+
+.sex{
+    margin-left: 20px;
+    margin-right: 0;
+}
+
+.inputNames{
+    margin-bottom: 0;
+}

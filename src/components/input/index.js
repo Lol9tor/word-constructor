@@ -10,20 +10,23 @@ class Input extends Component {
     }; // все свойства котор может принимать компонент(класс) упрощает понимагние и взаимодействие с компонентами)
 
     handleChange = (e)=> {
-        const {value} = e.currentTarget; // это === value =  e.currentTarget.value
+        const {value,name} = e.currentTarget; // это === value =  e.currentTarget.value
         if(typeof this.props.onChange === "function"){
-            this.props.onChange(value, name);
-            console.dir(e.currentTarget);
+            this.props.onChange(value, name, e);
         }
     };
 
     blurChange = (e)=> {
         const {value} = e.currentTarget;
-        this.props.onBlur(value)
+        if(typeof this.props.onBlur === "function"){
+            this.props.onBlur(value);
+        }
     };
 
     keyPress = (e)=>{
-      this.props.onKeyPress(e)
+        if(typeof this.props.onKeyPress === "function"){
+            this.props.onKeyPress(e);
+        }
     };
 
     render() {
