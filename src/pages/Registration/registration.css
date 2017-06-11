@@ -1,17 +1,50 @@
-.flexContainer{
+.wrapper{
+    width: 100%;
     display: flex;
-    padding: 15px 5px 15px 5px;
-    margin: 0 0 10px 0;
-    width: 400px; /* 353 + 2 + 45 = 400 */
-    font-size: 20px;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form{
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: space-around;
 }
 
 .sex{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
     margin-left: 20px;
     margin-right: 0;
 }
 
+.gender{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.genderItems{
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+.countrySelect{
+    width: 100%;
+}
+
 .inputNames{
     margin-bottom: 0;
+}
+
+.submitBtn{
+    width: 100px;
+    align-self: center;
 }

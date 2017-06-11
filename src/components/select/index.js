@@ -8,9 +8,15 @@ class Select extends Component {
     render() {
 
         return <div>
-            <select name={this.props.name} onChange={this.props.selectChange} className={styles.select}>
+            <select name={this.props.name}
+                    placeholder={"Choose your country"}
+                    onChange={this.props.selectChange}
+                    className={styles.select}>
                 {this.props.options.map((element, i)=> {
-                    return <option key = {i} value={element.value}>{element.label}</option>
+                    return <option key={i}
+                                   value={element.value}>
+                        {element.label}
+                    </option>
                 })}
             </select>
 

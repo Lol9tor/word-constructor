@@ -3,13 +3,13 @@ import {Link} from 'react-router-dom';
 import styles from './registration.css'
 import Input from '../../components/input';
 import Button from '../../components/button';
-import submitStyle from '../../components/button/button.css';
-import Select from '../../components/select'
+import Select from '../../components/select';
+import RadioGroup from '../../components/radiogroup';
 
 const options = [
     {
-        label: "",
-        value: ""
+        label: "Choose your country",
+        value: false
     },
     {
         label: "Ukraine",
@@ -18,6 +18,22 @@ const options = [
     {
         label: "Germany",
         value: "GER"
+    },
+    {
+        label: "United States of America",
+        value: "USA"
+    },
+    {
+        label: "Russian Federation",
+        value: "RU"
+    },
+    {
+        label: "France",
+        value: "FR"
+    },
+    {
+        label: "Latvia",
+        value: "LT"
     }
 ];
 
@@ -69,56 +85,70 @@ class Registration extends Component {
             <Link to={'/admin/login'}>
                 <Button>Go to login</Button>
             </Link>
-            <h1 className={styles.header}>Hello at registration page!</h1>
-            <br/>
-            <form onSubmit={this.show}>
-                <label>
-                    <h2 className={styles.inputNames}>Name</h2>
-                    <Input type="text" name="firstName" onChange={this.handleFormChange}/>
-                </label>
-                <label>
-                    <h2 className={styles.inputNames}>Last Name</h2>
-                    <Input type="text" name="lastName" onChange={this.handleFormChange}/>
-                </label>
-                <label>
-                    <h2 className={styles.inputNames}>Email</h2>
-                    <Input type="email" name="email" onChange={this.handleFormChange}/>
-                </label>
-                <label>
-                    <h2 className={`${styles.inputNames} ${styles.inputWrapper}`}>Password</h2>
-                    <Input type="password" name="password" onChange={this.handleFormChange}/>
-                </label>
-                <label>
-                    <h2 className={styles.inputNames}>Confirm password</h2>
-                    <Input type="password" name="confirmPassword" onChange={this.handleFormChange}/>
-                </label>
 
-                <div className={styles.flexContainer}>
-                    <div>
-                        Country:
-                        <Select name="country" selectChange={this.handleSelect} options={options}/>
-
+            <div className={styles.wrapper}>
+                <div>
+                    <h1>Hello at registration page!</h1>
+                </div>
+                <br/>
+                <form onSubmit={this.show}
+                      className={styles.form}
+                >
+                    <label>
+                        <h2 className={styles.inputNames}>Name</h2>
+                        <Input type="text"  name="firstName" onChange={this.handleFormChange}/>
+                    </label>
+                    <label>
+                        <h2 className={styles.inputNames}>Last Name</h2>
+                        <Input type="text" name="lastName" onChange={this.handleFormChange}/>
+                    </label>
+                    <label>
+                        <h2 className={styles.inputNames}>Email</h2>
+                        <Input type="email" name="email" onChange={this.handleFormChange}/>
+                    </label>
+                    <label>
+                        <h2 className={`${styles.inputNames} ${styles.inputWrapper}`}>Password</h2>
+                        <Input type="password" name="password" onChange={this.handleFormChange}/>
+                    </label>
+                    <label>
+                        <h2 className={styles.inputNames}>Confirm password</h2>
+                        <Input type="password" name="confirmPassword" onChange={this.handleFormChange}/>
+                    </label>
+                    <div className={styles.countrySelect}>
+                        <h2 className={styles.inputNames}>Country:</h2>
+                        <Select className={styles.countrySelect}
+                                placeholder={"dcdcdcd"}
+                                name="country"
+                                selectChange={this.handleSelect}
+                                options={options}/>
                     </div>
                     <div className={styles.sex}>
-                        Sex:
-                        Male
-                        <input type="radio"
-                               name="sex"
-                               value="male"
-                               onChange={this.handleSelect}
-                        />
-                        Female
-                        <input type="radio"
-                               name="sex"
-                               value="female"
-                               onChange={this.handleSelect}/>
+                       <h2> Sex:</h2>
+                        <div className={styles.gender}>
+                            <h3 className={styles.genderItems}>Male</h3>
+                            <RadioGroup name="sex"
+                                        value="male"
+                                        onChange={this.handleSelect}
+                            />
+                        </div>
+                        <div className={styles.gender}>
+                            <h3 className={styles.genderItems}>Female</h3>
+                            <RadioGroup name="sex"
+                                        value="female"
+                                        onChange={this.handleSelect}
+                            />
+                        </div>
                     </div>
                     <br/>
-                </div>
+                    <div className={styles.submitBtn}>
+                        <Button type="submit"
+                                value='Save'>
+                            Save
+                        </Button>
+                    </div>
 
-
-                <input type="submit" value='Save' className={submitStyle.button}/>
-            </form>
+                </form>
+            </div>
         </div>
     };
 }

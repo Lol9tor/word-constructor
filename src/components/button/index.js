@@ -7,7 +7,7 @@ class Button extends Component {
 
     render() {
         return <button
-            className={styles.button}
+            className={ styles.button}
             onClick={this.props.onClick} //  || error here
             disabled={this.props.isDisabled}>
             {this.props.children}
