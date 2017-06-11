@@ -11,3 +11,7 @@ export function getRdmItem(key){
     const array = getItem(key);
     return array[Math.floor(Math.random()*array.length)];
 }
+
+export function deleteItem(key,value) {
+    localStorage.removeItem(key, JSON.stringify(value));
+}

@@ -39,7 +39,8 @@ class Input extends Component {
                 onBlur={this.blurChange}
                 onKeyPress={this.keyPress}
                 name={this.props.name}
-                placeholder={`Write your ${this.props.name}...`}                />
+                placeholder={`Write your ${this.props.name}...`}
+                maxLength={this.props.maxLength}/>
 
         </div>
     }

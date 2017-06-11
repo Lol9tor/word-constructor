@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import styles from './adminPanel.css';
 import Input from '../../components/input';
 import Button from '../../components/button';
-import {setItem, getItem} from '../../utils/storage'
+import {setItem, getItem, deleteItem} from '../../utils/storage'
 
 function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
@@ -12,7 +12,7 @@ function isNumeric(n) {
 class AdminPanel extends Component {
     static propTypes = {};
     state = {
-        moderationWords:getItem("moderationWords") || [],
+        moderationWords: getItem("moderationWords") || [],
         words: ["алиса", "денди", "рубик"],
         currentWord: "",
         count: 0
@@ -24,17 +24,22 @@ class AdminPanel extends Component {
             return false;
         }
         let newArray = arr.concat(this.state.currentWord);
-        setItem("moderationWords",newArray);
+        setItem("moderationWords", newArray);
         let input = document.querySelector("input");
         input.value = "";
         this.setState({
             currentWord: "",
             moderationWords: newArray
         });
+
+      /*console.log(this.state.currentWord);
+        console.log(this.state.moderationWords);
+        console.log(newArray);*/
+
     };
 
     handleKeyPress = (event) => {
-        if(event.charCode === 13){
+        if (event.charCode === 13) {
             this.handleClick();
         }
     };
@@ -48,6 +53,29 @@ class AdminPanel extends Component {
         return arr.some(isNumeric);
     };
 
+    showDeleteBtn = (e)=> {
+        const delBtn = e.target.children[1];
+        console.log(delBtn);
+    };
+
+    deleteWord = (e)=>{
+        const currWord = e.currentTarget.parentNode.parentNode.childNodes[0].innerText;
+        let arr = this.state.moderationWords;
+        let newArr = arr.filter(el=>{
+            if(el!==currWord){
+                return el;
+            }
+
+        });
+        console.log(newArr);
+        setItem("moderationWords", newArr);
+        this.setState({
+            moderationWords: newArr
+        });
+        console.log(this.state.moderationWords);
+
+
+    };
 
     render() {
         let admin = 'Alex';
@@ -73,9 +101,20 @@ class AdminPanel extends Component {
                 <div className={styles.wordCollectionWrap}>
                     {
                         this.state.moderationWords.map((el, index)=> {
-                            return <div key={index}
-                                        className={styles.word}>
-                                {el.toLowerCase()}
+                            return <div className={styles.wordWrapper}
+                                        key={index}
+                                        onMouseOver={this.showDeleteBtn}
+                            >
+                                <div
+                                     className={styles.word}>
+                                    {el.toLowerCase()}
+                                </div>
+                                <div>
+                                    <img src={ require("../../assets/images/close.png")}
+                                         className={styles.closeImg}
+                                         onClick={this.deleteWord}/>
+                                </div>
+
                             </div>
                         })
                     }
@@ -86,10 +125,12 @@ class AdminPanel extends Component {
                         Add new word to collection:
                     </h2>
                     <Input type="text"
+                           name="word"
                            className={styles.input}
                            onBlur={this.wordChange}
                            onChange={this.wordChange}
                            onKeyPress={this.handleKeyPress}
+                           maxLenght="27"
                     />
                     <Button onClick={this.handleClick}
                             isDisabled={this.checkDisabled()}>
