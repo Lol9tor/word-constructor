@@ -110,7 +110,7 @@ class AdminPanel extends Component {
                                     {el.toLowerCase()}
                                 </div>
                                 <div>
-                                    <img src={ require("../../assets/images/close.png")}
+                                    <img src={"../../assets/images/close.png"}
                                          className={styles.closeImg}
                                          onClick={this.deleteWord}/>
                                 </div>
