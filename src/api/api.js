@@ -20,8 +20,7 @@ function sendRequest(params) {
 
 export function getWords() {
 	return sendRequest({
-		method: 'get',
-		url: '/words',
-		mode: 'cors'
+		method: 'GET',
+		url: '/words'
 	})
 }

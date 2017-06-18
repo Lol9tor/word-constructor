@@ -20,11 +20,18 @@ mongoose.connection.on('connected', () => {
 	console.log(`Connected to database: ${DATABASE_URL}`);
 });
 
+// mongoose.connect(DATABASE_URL);
+app.use(function(req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	next();
+});
 app.use(bodyParser.json());
 
 app.get('/words', (req, res)=>{
-	console.log(req);
-	res.send({status: 200, words: ['something', 'reorganization']});
+	console.log(req.query);
+	res.status(200);
+	res.send(['something', 'reorganization']);
 });
 
 // app.use('/*', express.static('/dist/'));
