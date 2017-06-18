@@ -51,15 +51,9 @@
 .closeImg{
     width: 30px;
     height: 30px;
-   margin: auto 20px;
+    margin: auto 20px;
     align-self: flex-end;
-    visibility: hidden;
 }
-
-.showDelBtn{
-    visibility: visible;
-}
-
 
 .wordWrapper{
     display: flex;

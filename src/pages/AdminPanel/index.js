@@ -4,6 +4,7 @@ import styles from './adminPanel.css';
 import Input from '../../components/input';
 import Button from '../../components/button';
 import {setItem, getItem, deleteItem} from '../../utils/storage'
+import removeIcon from '../../assets/images/close.png';
 
 function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
@@ -54,7 +55,6 @@ class AdminPanel extends Component {
     };
 
     showDeleteBtn = (e)=> {
-        const delBtn = e.target.children[1];
         console.log(delBtn);
     };
 
@@ -101,16 +101,16 @@ class AdminPanel extends Component {
                 <div className={styles.wordCollectionWrap}>
                     {
                         this.state.moderationWords.map((el, index)=> {
-                            return <div className={styles.wordWrapper}
-                                        key={index}
-                                        onMouseOver={this.showDeleteBtn}
+                            return <div
+                                className={styles.wordWrapper}
+                                key={index}
                             >
                                 <div
                                      className={styles.word}>
                                     {el.toLowerCase()}
                                 </div>
                                 <div>
-                                    <img src={"../../assets/images/close.png"}
+                                    <img src={removeIcon}
                                          className={styles.closeImg}
                                          onClick={this.deleteWord}/>
                                 </div>
