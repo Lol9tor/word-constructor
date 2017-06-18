@@ -22,7 +22,12 @@ mongoose.connection.on('connected', () => {
 
 app.use(bodyParser.json());
 
-app.use('/*', express.static('/dist/'));
+app.get('/words', (req, res)=>{
+	console.log(req);
+	res.send({status: 200, words: ['something', 'reorganization']});
+});
+
+// app.use('/*', express.static('/dist/'));
 
 app.listen(PORT, () => {
 	console.log(`Started up at port ${PORT}`);
