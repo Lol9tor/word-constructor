@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import styles from './adminPanel.css';
 import Input from '../../components/input';
 import Button from '../../components/button';
-import {setItem, getItem, deleteItem} from '../../utils/storage'
+import {setItem, getItem} from '../../utils/storage'
 import removeIcon from '../../assets/images/close.png';
 
 function isNumeric(n) {
@@ -36,7 +36,6 @@ class AdminPanel extends Component {
       /*console.log(this.state.currentWord);
         console.log(this.state.moderationWords);
         console.log(newArray);*/
-
     };
 
     handleKeyPress = (event) => {
@@ -54,18 +53,14 @@ class AdminPanel extends Component {
         return arr.some(isNumeric);
     };
 
-    showDeleteBtn = (e)=> {
-        console.log(delBtn);
-    };
 
-    deleteWord = (e)=>{
-        const currWord = e.currentTarget.parentNode.parentNode.childNodes[0].innerText;
+    deleteWord = (currWord)=>{
+        //const currWord = e.currentTarget.parentNode.parentNode.childNodes[0].innerText;
         let arr = this.state.moderationWords;
         let newArr = arr.filter(el=>{
             if(el!==currWord){
                 return el;
             }
-
         });
         console.log(newArr);
         setItem("moderationWords", newArr);
@@ -73,8 +68,6 @@ class AdminPanel extends Component {
             moderationWords: newArr
         });
         console.log(this.state.moderationWords);
-
-
     };
 
     render() {
@@ -112,7 +105,7 @@ class AdminPanel extends Component {
                                 <div>
                                     <img src={removeIcon}
                                          className={styles.closeImg}
-                                         onClick={this.deleteWord}/>
+                                         onClick={this.deleteWord.bind(this, el)}/>
                                 </div>
 
                             </div>
