@@ -27,6 +27,10 @@ class WordConstruct extends Component {
         }));
     };
 
+    componentWillMount(){
+        this.shake();
+    }
+
     render() {
         return <div>
             <Link to={'/admin/login'}>
