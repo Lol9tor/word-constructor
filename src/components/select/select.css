@@ -1,7 +1,7 @@
-.inputStyle {
+.select {
     padding: 15px 15px 15px 30px;
     margin: 0 0 10px 0;
-    width: 353px; /* 353 + 2 + 45 = 400 */
+    width: 400px; /* 353 + 2 + 45 = 400 */
     border: 1px solid #ccc;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -9,5 +9,5 @@
     -moz-box-shadow: 0 1px 1px #ccc inset, 0 1px 0 #fff;
     -webkit-box-shadow: 0 1px 1px #ccc inset, 0 1px 0 #fff;
     box-shadow: 0 1px 1px #ccc inset, 0 1px 0 #fff;
+    font-size: 20px;
 }
-

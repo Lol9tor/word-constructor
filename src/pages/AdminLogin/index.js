@@ -1,27 +1,45 @@
-
 import React, {Component, PropTypes} from 'react';
+import {Link} from 'react-router-dom';
 import styles from './adminLogin.css'; // обьект с классами(их названия)
 import Input from '../../components/input'
 import Button from '../../components/button'
 
 class AdminLogin extends Component {
     static propTypes = {};
+    state = {
+        user: {
+            email: "",
+            password: ""
+
+        }
+    };
+
+    handleChange = (text)=> {
+
+    };
 
     render() {
-        let email = null;
-        let password = null;
 
-        return <div className={styles.adminLogin}>Admin Login
-            <form id="login">
-                <h1>Форма входа</h1>
-                <fieldset id="inputs">
-                    <input id="username" className = {styles.inputStyle} type="text" placeholder="Логин" required/>
-                    <input id="password" className = {styles.inputStyle} type="password" placeholder="Пароль" required/>
-                </fieldset>
-                <fieldset id="actions">
-                    <Button type="submit" id="submit" value="ВОЙТИ"/>
-                        <a href="">Забыли пароль?</a><a href="">Регистрация</a>
-                </fieldset>
+
+        return <div className={styles.adminLogin}>
+            <Link to={'/'}>
+                <Button>Go to main</Button>
+            </Link>
+            <Link to={'/admin'}>
+                <Button>Go to admin</Button>
+            </Link>
+            <Link to={'/registration'}>
+                <Button>Go to Registration</Button>
+            </Link>
+
+            <form>
+                <h1>Login</h1>
+                <input id="username" name="email" className={styles.inputStyle} type="text" placeholder="Enter your login" required/>
+                <br/>
+                <input id="password" name="password" className={styles.inputStyle} type="password" placeholder="Enter your password"
+                       required/>
+                <br/>
+                <Button type="submit" id="submit" value="ВОЙТИ"> Enter</Button>
             </form>
         </div>
     }

@@ -1,0 +1,75 @@
+.wordCollectionHeader{
+
+    margin-top: 50px;
+}
+
+.flexContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.inputWrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 50%;
+}
+
+
+
+.wordCollectionWrap{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+
+    border-right: 1px solid black;
+    /*border-radius: 3px;*/
+    margin-top: 10px;
+    text-align: center;
+}
+
+.word{
+    margin: 5px;
+    padding: 5px 10px;
+    font-size: 32px;
+    display: inline-block;
+    text-align: center;
+    overflow: hidden;
+
+}
+
+.greeting{
+    text-align: center;
+}
+
+
+.closeImg{
+    width: 30px;
+    height: 30px;
+   margin: auto 20px;
+    align-self: flex-end;
+    visibility: hidden;
+}
+
+.showDelBtn{
+    visibility: visible;
+}
+
+
+.wordWrapper{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    align-content: space-between;
+}
+
+
+
+

@@ -1,0 +1,50 @@
+.wrapper{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form{
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: space-around;
+}
+
+.sex{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 20px;
+    margin-right: 0;
+}
+
+.gender{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.genderItems{
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+.countrySelect{
+    width: 100%;
+}
+
+.inputNames{
+    margin-bottom: 0;
+}
+
+.submitBtn{
+    width: 100px;
+    align-self: center;
+}
