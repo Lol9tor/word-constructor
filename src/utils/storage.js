@@ -8,7 +8,7 @@ export function getItem(key) {
 }
 
 export function getRdmItem(key){
-    const array = getItem(key);
+    const array = getItem(key) || ['collaboration'];
     return array[Math.floor(Math.random()*array.length)];
 }
 
