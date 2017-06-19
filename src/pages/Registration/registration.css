@@ -1,9 +1,11 @@
 .wrapper{
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 10px;
 }
 
 .form{
@@ -19,7 +21,7 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    margin-left: 20px;
+    margin-left: 5px;
     margin-right: 0;
 }
 
@@ -42,6 +44,7 @@
 
 .inputNames{
     margin-bottom: 0;
+    margin-left: 5px;
 }
 
 .submitBtn{

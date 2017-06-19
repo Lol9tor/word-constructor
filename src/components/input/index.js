@@ -30,7 +30,7 @@ class Input extends Component {
     };
 
     render() {
-        return <div>
+        return <div className={styles.wrapper}>
 
             <input
                 type={this.props.type || "text"}
@@ -42,7 +42,6 @@ class Input extends Component {
                 placeholder={`Write your ${this.props.name}...`}
                 maxLength={this.props.maxLength}
                 minLength={this.props.minLength}/>
-
         </div>
     }
 }

@@ -33,9 +33,9 @@ class AdminPanel extends Component {
             moderationWords: newArray
         });
 
-      /*console.log(this.state.currentWord);
-        console.log(this.state.moderationWords);
-        console.log(newArray);*/
+        /*console.log(this.state.currentWord);
+         console.log(this.state.moderationWords);
+         console.log(newArray);*/
     };
 
     handleKeyPress = (event) => {
@@ -54,11 +54,11 @@ class AdminPanel extends Component {
     };
 
 
-    deleteWord = (currWord)=>{
+    deleteWord = (currWord)=> {
         //const currWord = e.currentTarget.parentNode.parentNode.childNodes[0].innerText;
         let arr = this.state.moderationWords;
-        let newArr = arr.filter(el=>{
-            if(el!==currWord){
+        let newArr = arr.filter(el=> {
+            if (el !== currWord) {
                 return el;
             }
         });
@@ -86,20 +86,17 @@ class AdminPanel extends Component {
             <h1 className={styles.greeting}>
                 Hello {admin}!
             </h1>
-
-            <h2 className={styles.wordCollectionHeader}>
-                Word for moderation:
-            </h2>
             <div className={styles.flexContainer}>
-                <div className={styles.wordCollectionWrap}>
-                    {
-                        this.state.moderationWords.map((el, index)=> {
+                <div className={styles.WordCollectionMainWrapper}>
+                    <div>
+                        <h2>Word for moderation:</h2>
+                    </div>
+                    <div className={styles.wordCollectionWrap}>
+                        {this.state.moderationWords.map((el, index)=> {
                             return <div
                                 className={styles.wordWrapper}
-                                key={index}
-                            >
-                                <div
-                                     className={styles.word}>
+                                key={index}>
+                                <div className={styles.word}>
                                     {el.toLowerCase()}
                                 </div>
                                 <div>
@@ -107,24 +104,26 @@ class AdminPanel extends Component {
                                          className={styles.closeImg}
                                          onClick={this.deleteWord.bind(this, el)}/>
                                 </div>
-
                             </div>
                         })
-                    }
+                        }
+                    </div>
                 </div>
 
                 <div className={styles.inputWrapper}>
                     <h2 className={styles.wordCollectionHeader}>
                         Add new word to collection:
                     </h2>
-                    <Input type="text"
-                           name="word"
-                           className={styles.input}
-                           onBlur={this.wordChange}
-                           onChange={this.wordChange}
-                           onKeyPress={this.handleKeyPress}
-                           maxLenght="27"
-                    />
+                    <div className={styles.input}>
+                        <Input type="text"
+                               name="word"
+                               onBlur={this.wordChange}
+                               onChange={this.wordChange}
+                               onKeyPress={this.handleKeyPress}
+                               maxLenght="27"
+                        />
+                    </div>
+
                     <Button onClick={this.handleClick}
                             isDisabled={this.checkDisabled()}>
                         Add

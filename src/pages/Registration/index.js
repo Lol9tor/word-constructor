@@ -51,7 +51,7 @@ class Registration extends Component {
         }
     };
 
-    show = (e)=> {
+    submitForm = (e)=> {
         e.preventDefault();
         console.log(this.state.user);
     };
@@ -91,63 +91,63 @@ class Registration extends Component {
                     <h1>Hello at registration page!</h1>
                 </div>
                 <br/>
-                <form onSubmit={this.show}
-                      className={styles.form}
-                >
-                    <label>
-                        <h2 className={styles.inputNames}>Name</h2>
-                        <Input type="text"  name="firstName" onChange={this.handleFormChange}/>
-                    </label>
-                    <label>
-                        <h2 className={styles.inputNames}>Last Name</h2>
-                        <Input type="text" name="lastName" onChange={this.handleFormChange}/>
-                    </label>
-                    <label>
-                        <h2 className={styles.inputNames}>Email</h2>
-                        <Input type="email" name="email" onChange={this.handleFormChange}/>
-                    </label>
-                    <label>
-                        <h2 className={`${styles.inputNames} ${styles.inputWrapper}`}>Password</h2>
-                        <Input type="password" name="password" onChange={this.handleFormChange}/>
-                    </label>
-                    <label>
-                        <h2 className={styles.inputNames}>Confirm password</h2>
-                        <Input type="password" name="confirmPassword" onChange={this.handleFormChange}/>
-                    </label>
-                    <div className={styles.countrySelect}>
-                        <h2 className={styles.inputNames}>Country:</h2>
-                        <Select className={styles.countrySelect}
-                                placeholder={"dcdcdcd"}
-                                name="country"
-                                selectChange={this.handleSelect}
-                                options={options}/>
-                    </div>
-                    <div className={styles.sex}>
-                       <h2> Sex:</h2>
-                        <div className={styles.gender}>
-                            <h3 className={styles.genderItems}>Male</h3>
-                            <RadioGroup name="sex"
-                                        value="male"
-                                        onChange={this.handleSelect}
-                            />
+                    <form onSubmit={this.submitForm}
+                          className={styles.form}
+                    >
+                        <label>
+                            <h2 className={styles.inputNames}>Name</h2>
+                            <Input type="text" name="firstName" onChange={this.handleFormChange}/>
+                        </label>
+                        <label>
+                            <h2 className={styles.inputNames}>Last Name</h2>
+                            <Input type="text" name="lastName" onChange={this.handleFormChange}/>
+                        </label>
+                        <label>
+                            <h2 className={styles.inputNames}>Email</h2>
+                            <Input type="email" name="email" onChange={this.handleFormChange}/>
+                        </label>
+                        <label>
+                            <h2 className={`${styles.inputNames} ${styles.inputWrapper}`}>Password</h2> {/*few styles add (example)*/}
+                            <Input type="password" name="password" onChange={this.handleFormChange}/>
+                        </label>
+                        <label>
+                            <h2 className={styles.inputNames}>Confirm password</h2>
+                            <Input type="password" name="confirmPassword" onChange={this.handleFormChange}/>
+                        </label>
+                        <div className={styles.countrySelect}>
+                            <h2 className={styles.inputNames}>Country:</h2>
+                            <Select className={styles.countrySelect}
+                                    placeholder={"dcdcdcd"}
+                                    name="country"
+                                    selectChange={this.handleSelect}
+                                    options={options}/>
                         </div>
-                        <div className={styles.gender}>
-                            <h3 className={styles.genderItems}>Female</h3>
-                            <RadioGroup name="sex"
-                                        value="female"
-                                        onChange={this.handleSelect}
-                            />
+                        <div className={styles.sex}>
+                            <h2 > Sex:</h2>
+                            <div className={styles.gender}>
+                                <h3 className={styles.genderItems}>Male</h3>
+                                <RadioGroup name="sex"
+                                            value="male"
+                                            onChange={this.handleSelect}
+                                />
+                            </div>
+                            <div className={styles.gender}>
+                                <h3 className={styles.genderItems}>Female</h3>
+                                <RadioGroup name="sex"
+                                            value="female"
+                                            onChange={this.handleSelect}
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <br/>
-                    <div className={styles.submitBtn}>
-                        <Button type="submit"
-                                value='Save'>
-                            Save
-                        </Button>
-                    </div>
+                        <br/>
+                        <div className={styles.submitBtn}>
+                            <Button type="submit"
+                                    value='Save'>
+                                Save
+                            </Button>
+                        </div>
 
-                </form>
+                    </form>
             </div>
         </div>
     };

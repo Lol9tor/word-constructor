@@ -20,8 +20,7 @@ class AdminLogin extends Component {
 
     render() {
 
-
-        return <div className={styles.adminLogin}>
+        return <div>
             <Link to={'/'}>
                 <Button>Go to main</Button>
             </Link>
@@ -31,16 +30,30 @@ class AdminLogin extends Component {
             <Link to={'/registration'}>
                 <Button>Go to Registration</Button>
             </Link>
-
-            <form>
-                <h1>Login</h1>
-                <input id="username" name="email" className={styles.inputStyle} type="text" placeholder="Enter your login" required/>
-                <br/>
-                <input id="password" name="password" className={styles.inputStyle} type="password" placeholder="Enter your password"
-                       required/>
-                <br/>
-                <Button type="submit" id="submit" value="ВОЙТИ"> Enter</Button>
-            </form>
+            <div className={styles.wrapper}>
+                <form className={styles.form}>
+                    <label>
+                        <h2 className={styles.inputNames}>Login:</h2>
+                        <Input id="username"
+                               name="email"
+                               type="email"
+                               placeholder="Enter your"
+                               required/>
+                    </label>
+                    <h2 className={styles.inputNames}>Password:</h2>
+                    <Input id="password"
+                           name="password"
+                           type="password"
+                           required/>
+                    <div className={styles.submitBtn}>
+                        <Button type="submit"
+                                id="submit"
+                                value="enter">
+                            Enter
+                        </Button>
+                    </div>
+                </form>
+            </div>
         </div>
     }
 }

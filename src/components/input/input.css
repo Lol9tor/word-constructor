@@ -1,7 +1,13 @@
+.wrapper{
+    display: flex;
+    width: 100%;
+}
+
 .inputStyle {
-    padding: 15px 15px 15px 30px;
+    align-self: center;
+    padding: 10px;
     margin: 0 0 10px 0;
-    width: 353px; /* 353 + 2 + 45 = 400 */
+    width: 95%;
     border: 1px solid #ccc;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;

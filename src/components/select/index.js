@@ -7,7 +7,7 @@ class Select extends Component {
 
     render() {
 
-        return <div>
+        return <div className={styles.wrapper}>
             <select name={this.props.name}
                     placeholder={"Choose your country"}
                     onChange={this.props.selectChange}

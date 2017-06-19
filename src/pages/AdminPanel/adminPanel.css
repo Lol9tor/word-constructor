@@ -1,7 +1,7 @@
-.wordCollectionHeader{
-
-    margin-top: 50px;
+.WordCollectionMainWrapper{
+    width:50%;
 }
+
 
 .flexContainer{
     display: flex;
@@ -18,6 +18,15 @@
     width: 50%;
 }
 
+.input{
+    width: 90%;
+    min-width: 200px;
+    max-width: 300px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+
 
 
 .wordCollectionWrap{
@@ -25,8 +34,6 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    width: 50%;
-
     border-right: 1px solid black;
     /*border-radius: 3px;*/
     margin-top: 10px;
