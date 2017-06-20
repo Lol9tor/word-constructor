@@ -8,7 +8,19 @@ import {setItem, getItem, getRdmItem} from '../../utils/storage'
 class WordConstruct extends Component {
     static propTypes = {};
     state = {
+        count:0,
+        wordCollection:getItem('moderationWords'),
         word: getRdmItem('moderationWords')
+    };
+
+    addWords = ()=>{
+        let words = getItem('moderationWords');
+        this.setState({
+            wordCollection: words.sort(function () {
+                return .5 - Math.random();
+            }).join(""),
+            word: this.state.wordCollection
+        })
     };
 
     shake = ()=> {
@@ -21,13 +33,28 @@ class WordConstruct extends Component {
         });
     };
 
-    check = ()=> {
-        console.log(getItem('moderationWords').some((el)=> {
-            return el === this.state.word;
-        }));
+
+
+
+    nextWord = ()=> {
+
+        let check = getItem('moderationWords').some((el)=> {
+            return (el === this.state.word);
+        });
+
+        if (check === true) {
+            this.setState({
+                word: getRdmItem(this.state.wordCollection)
+            });
+            this.shake();
+            console.log(this.state.word);
+        } else {
+            console.error("wrongWord");
+        }
     };
 
-    componentWillMount(){
+    componentWillMount() {
+        this.addWords();
         this.shake();
     }
 
@@ -47,12 +74,13 @@ class WordConstruct extends Component {
             <div className={styles.wrapper}>
                 <div className={styles.block}>
                     {this.state.word.split("").map(function (el, index) {
-                        return <div key={index} className={styles.letter}>
+                        return <div key={index}
+                                    className={styles.letter}>
                             {el}
                         </div>
                     })}
                 </div>
-                <Button onClick={this.check}>Check word</Button>
+                <Button onClick={this.nextWord}>Next word</Button>
                 <Button onClick={this.shake}>Shake letter</Button>
             </div>
 

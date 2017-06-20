@@ -24,14 +24,24 @@ class AdminPanel extends Component {
         if (this.state.currentWord === "") {
             return false;
         }
-        let newArray = arr.concat(this.state.currentWord);
-        setItem("moderationWords", newArray);
-        let input = document.querySelector("input");
-        input.value = "";
-        this.setState({
-            currentWord: "",
-            moderationWords: newArray
+        let currWord = this.state.currentWord.toLowerCase();
+        let unique = arr.every((el)=> {
+            return (el !== currWord);
         });
+        console.log(unique, currWord);
+        if(unique){
+            let newArray = arr.concat(currWord);
+            setItem("moderationWords", newArray);
+            let input = document.querySelector("input");
+            input.value = "";
+            this.setState({
+                currentWord: "",
+                moderationWords: newArray
+            });
+        }else{
+            return false;
+        }
+
 
         /*console.log(this.state.currentWord);
          console.log(this.state.moderationWords);
