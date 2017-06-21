@@ -9,9 +9,14 @@ module.exports = {
 		});
 	},
 	getOne: function (req, res) {
-		Word.findById(req.params.wordId, function(err, task) {
+		Word.findById(req.params.wordId, function(err, word) {
 			if (err) res.send(err);
-			res.json(task);
+			const arrByWord = word.text.split('');
+			arrByWord.sort(function() {
+				return .5 - Math.random();
+			});
+			word.set('text', arrByWord.join(''));
+			res.json(word);
 		});
 	},
 	create: function (req, res) {
@@ -20,9 +25,8 @@ module.exports = {
 			res.send({error: 'Field "text" is required'});
 			return false;
 		}
-		const obj = {text:req.body.text.toLowerCase()};
+		const obj = {text:req.body.text};
 		const word = new Word(obj);
-		console.log(req.body);
 		word.save(function(err, task) {
 			if (err) res.send(err);
 			res.json(task);

@@ -5,13 +5,24 @@ const Schema = mongoose.Schema;
 const User = new Schema({
 	email: {
 		type: String,
-		Required: 'Email is required'
+		required: 'Email is required',
+		unique: true,
+		lowercase: true,
+		trim: true
 	},
 	firstName: {
 		type: String
 	},
 	lastName: {
 		type: String
+	},
+	country: {
+		type: String,
+		required: 'Country is required'
+	},
+	sex: {
+		type: String,
+		required: 'Country is required'
 	},
 	created_at: {
 		type: Date,

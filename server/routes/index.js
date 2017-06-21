@@ -1,13 +1,13 @@
-module.exports = function(app) {
-	const wordController = require('../controllers/wordController'),
-		userController = require('../controllers/userController');
+const express = require('express');
+const router = express.Router();
+const wordController = require('../controllers/wordController'),
+	userController = require('../controllers/userController');
 
-	app.route('/words')
-		.get(wordController.getAll)
-		.post(wordController.create);
+router.get('/words', wordController.getAll);
+router.post('/words', wordController.create);
 
-	app.route('/words/:wordId')
-		.get(wordController.getOne)
-		.put(wordController.update)
-		.delete(wordController.delete);
-};
+router.get('/words/:wordId', wordController.getOne);
+router.put('/words/:wordId', wordController.update);
+router.delete('/words/:wordId', wordController.delete);
+
+module.exports = router;
