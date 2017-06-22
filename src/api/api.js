@@ -24,3 +24,25 @@ export function getWords() {
 		url: '/words'
 	})
 }
+
+export function getWord(id) {
+	return sendRequest({
+		method: 'GET',
+		url: `/words/${id}`
+	})
+}
+
+export function createWord(word) {
+	return sendRequest({
+		method: 'POST',
+		url: `/words`,
+		body: word
+	})
+}
+
+export function deleteWord(id) {
+	return sendRequest({
+		method: 'DELETE',
+		url: `/words/${id}`
+	})
+}

@@ -1,11 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const {ObjectID} = require('mongodb');
 const mongoose = require('mongoose');
 
- /*let {Todo} = require('./models/todo');
-let {User} = require('./models/user');
-let {authenticate} = require('./middleware/authenticate');*/
+const Word = require('./models/word');
+const User = require('./models/user');
+const routes = require('./routes');
 const {PORT, DATABASE_URL} = require('./config/config');
 
 let app = express();
@@ -20,21 +19,24 @@ mongoose.connection.on('connected', () => {
 	console.log(`Connected to database: ${DATABASE_URL}`);
 });
 
-// mongoose.connect(DATABASE_URL);
+mongoose.connect(DATABASE_URL);
+
 app.use(function(req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
-	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-	next();
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+	if (req.method === 'OPTIONS') {
+		res.sendStatus(200);
+	} else {
+		next();
+	}
 });
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-app.get('/words', (req, res)=>{
-	console.log(req.query);
-	res.status(200);
-	res.send(['something', 'reorganization']);
-});
-
+app.use('/', routes);
 // app.use('/*', express.static('/dist/'));
+app.use(function(req, res) {
+	res.status(404).send({url: req.originalUrl + ' not found'})
+});
 
 app.listen(PORT, () => {
 	console.log(`Started up at port ${PORT}`);
