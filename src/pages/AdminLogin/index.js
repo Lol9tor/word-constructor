@@ -1,8 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router-dom';
-import styles from './adminLogin.css'; // обьект с классами(их названия)
-import Input from '../../components/input'
-import Button from '../../components/button'
+import styles from './adminLogin.css';
+import Input from '../../components/input';
+import Button from '../../components/button';
 
 class AdminLogin extends Component {
     static propTypes = {};
@@ -14,9 +14,16 @@ class AdminLogin extends Component {
         }
     };
 
-    handleChange = (text)=> {
-
+    handleChange = (value, name)=> {
+        this.setState({
+            ...this.state.user,
+            [name]: value
+        });
+        let valid = new Validator;
     };
+
+
+
 
     render() {
 
@@ -34,17 +41,20 @@ class AdminLogin extends Component {
                 <form className={styles.form}>
                     <label>
                         <h2 className={styles.inputNames}>Login:</h2>
-                        <Input id="username"
+                        <Input onChange={this.handleChange}
+                               id="username"
                                name="email"
                                type="email"
-                               placeholder="Enter your"
-                               required/>
+                               maxLength="25"
+                               minLength="5"/>
                     </label>
                     <h2 className={styles.inputNames}>Password:</h2>
-                    <Input id="password"
+                    <Input onChange={this.handleChange}
+                           id="password"
                            name="password"
                            type="password"
-                           required/>
+                           maxLength="15"
+                           minLength="3"/>
                     <div className={styles.submitBtn}>
                         <Button type="submit"
                                 id="submit"

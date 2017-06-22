@@ -36,6 +36,16 @@ const options = [
         value: "LT"
     }
 ];
+const rules = {
+    firstName: ['required', {type: 'length', args: [2, 20]}],
+    lastName: ['required', {type: 'length', args: [2, 20]}],
+    age: ['required', 'isNumber', {type: 'isBetween', args: [5, 80]}],
+    phone: ['required', 'isNumber'],
+    hobbies: ['required', {type: 'length', args: [1, 200]}],
+    country: ['required'],
+    email: ['required'],
+    gender: [],
+};
 
 class Registration extends Component {
     static propTypes = {};

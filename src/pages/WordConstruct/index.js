@@ -9,18 +9,8 @@ class WordConstruct extends Component {
     static propTypes = {};
     state = {
         count:0,
-        wordCollection:getItem('moderationWords'),
-        word: getRdmItem('moderationWords')
-    };
-
-    addWords = ()=>{
-        let words = getItem('moderationWords');
-        this.setState({
-            wordCollection: words.sort(function () {
-                return .5 - Math.random();
-            }).join(""),
-            word: this.state.wordCollection
-        })
+        wordCollection: getItem('moderationWords'),
+        word: /*this.state.wordCollection[this.state.count]*/  "one"
     };
 
     shake = ()=> {
@@ -33,28 +23,24 @@ class WordConstruct extends Component {
         });
     };
 
-
-
-
     nextWord = ()=> {
-
         let check = getItem('moderationWords').some((el)=> {
             return (el === this.state.word);
         });
 
         if (check === true) {
+            console.log(this.state.count);
             this.setState({
-                word: getRdmItem(this.state.wordCollection)
+               count: this.state.count+=1
             });
-            this.shake();
-            console.log(this.state.word);
+            console.log(this.state.count);
+
         } else {
             console.error("wrongWord");
         }
     };
 
     componentWillMount() {
-        this.addWords();
         this.shake();
     }
 

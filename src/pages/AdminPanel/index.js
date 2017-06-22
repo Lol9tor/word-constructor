@@ -28,7 +28,7 @@ class AdminPanel extends Component {
         let unique = arr.every((el)=> {
             return (el !== currWord);
         });
-        console.log(unique, currWord);
+
         if(unique){
             let newArray = arr.concat(currWord);
             setItem("moderationWords", newArray);
