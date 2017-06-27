@@ -3,8 +3,9 @@ import {Link} from 'react-router-dom';
 import styles from './adminPanel.css';
 import Input from '../../components/input';
 import Button from '../../components/button';
-import {setItem, getItem} from '../../utils/storage'
+import {setItem, getItem} from '../../utils/storage';
 import removeIcon from '../../assets/images/close.png';
+import {createWord, getWords} from '../../api/api';
 
 function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
@@ -13,11 +14,19 @@ function isNumeric(n) {
 class AdminPanel extends Component {
     static propTypes = {};
     state = {
-        moderationWords: getItem("moderationWords") || [],
-        words: ["алиса", "денди", "рубик"],
+        moderationWords: [],
         currentWord: "",
         count: 0
     };
+
+    componentWillMount() {
+        getWords().then((words) => {
+            this.setState({
+                moderationWords: words
+            });
+        })
+    }
+
 
     handleClick = ()=> {
         let arr = this.state.moderationWords;
@@ -28,15 +37,21 @@ class AdminPanel extends Component {
         let unique = arr.every((el)=> {
             return (el !== currWord);
         });
+        console.log(currWord);
 
         if(unique){
-            let newArray = arr.concat(currWord);
-            setItem("moderationWords", newArray);
-            let input = document.querySelector("input");
-            input.value = "";
+            // let newArray = arr.concat(currWord);
+            // setItem("moderationWords", newArray);
+            // let input = document.querySelector("input");
+            // input.value = "";
             this.setState({
-                currentWord: "",
-                moderationWords: newArray
+                currentWord: ""
+                // moderationWords: newArray
+            });
+            createWord({text: currWord}).then((word)=>{
+                this.setState({
+                    moderationWords: this.state.moderationWords.concat(word)
+                })
             });
         }else{
             return false;
@@ -107,7 +122,7 @@ class AdminPanel extends Component {
                                 className={styles.wordWrapper}
                                 key={index}>
                                 <div className={styles.word}>
-                                    {el.toLowerCase()}
+                                    {el.text}
                                 </div>
                                 <div>
                                     <img src={removeIcon}
@@ -129,6 +144,7 @@ class AdminPanel extends Component {
                                name="word"
                                onBlur={this.wordChange}
                                onChange={this.wordChange}
+                               value={this.state.currentWord}
                                onKeyPress={this.handleKeyPress}
                                maxLenght="27"
                         />

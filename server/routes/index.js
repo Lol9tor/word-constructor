@@ -4,6 +4,7 @@ const wordController = require('../controllers/wordController'),
 	userController = require('../controllers/userController');
 
 router.get('/words', wordController.getAll);
+router.get('/words/user', wordController.getAllForUser);
 router.post('/words', wordController.create);
 
 router.get('/words/:wordId', wordController.getOne);

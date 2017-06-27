@@ -8,12 +8,12 @@ import Registration from './pages/Registration';
 import NotFound from './pages/NotFound';
 import {getWords, getWord} from './api/api';
 
-/*getWords().then((words)=>{
+getWords().then((words)=>{
 	console.log(words);
 	if (words.length){
 		getWord(words[0]._id).then((word)=>console.log(word));
 	}
-});*/
+});
 
 class App extends React.Component {
 	static propTypes = {};

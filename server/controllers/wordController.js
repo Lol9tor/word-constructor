@@ -3,18 +3,26 @@ const mongoose = require('mongoose'),
 
 module.exports = {
 	getAll: function (req, res) {
-		Word.find({}, function(err, task) {
+		Word.find({}, function(err, words) {
 			if (err) res.send(err);
-			res.json(task);
+			res.json(words);
+		});
+	},
+	getAllForUser: function (req, res) {
+		Word.find({}, function(err, words) {
+			if (err) res.send(err);
+			const mixedWords = words.map(function (word) {
+				const arrByWord = shuffleArray( word.text.split(''));
+				word.set('text', arrByWord.join(''));
+				return word;
+			});
+			res.json(shuffleArray(mixedWords));
 		});
 	},
 	getOne: function (req, res) {
 		Word.findById(req.params.wordId, function(err, word) {
 			if (err) res.send(err);
-			const arrByWord = word.text.split('');
-			arrByWord.sort(function() {
-				return .5 - Math.random();
-			});
+			const arrByWord = shuffleArray( word.text.split(''));
 			word.set('text', arrByWord.join(''));
 			res.json(word);
 		});
@@ -47,4 +55,12 @@ module.exports = {
 		});
 	}
 };
+
+function shuffleArray(array) {
+	return array.slice(0).sort(function() {
+		return .5 - Math.random();
+	});
+}
+
+
 

@@ -2,18 +2,17 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router-dom';
 import styles from './wordConstruct.css';
 import Button from '../../components/button';
-import {setItem, getItem, getRdmItem} from '../../utils/storage'
-
+import {getWordsForUser}  from '../../api/api'
 
 class WordConstruct extends Component {
     static propTypes = {};
     state = {
         count:0,
-        wordCollection: getItem('moderationWords'),
-        word: /*this.state.wordCollection[this.state.count]*/  "one"
+        words:[],
+        word: null
     };
 
-    shake = ()=> {
+    /*shake = ()=> {
         let shakeWord = this.state.word.split("");
         shakeWord = shakeWord.sort(function () {
             return .5 - Math.random();
@@ -21,9 +20,9 @@ class WordConstruct extends Component {
         this.setState({
             word: shakeWord
         });
-    };
+    };*/ // shakeFnc
 
-    nextWord = ()=> {
+    /*nextWord = ()=> {
         let check = getItem('moderationWords').some((el)=> {
             return (el === this.state.word);
         });
@@ -38,10 +37,15 @@ class WordConstruct extends Component {
         } else {
             console.error("wrongWord");
         }
-    };
+    };*/ // nextWord Fnc
 
     componentWillMount() {
-        this.shake();
+        getWordsForUser().then( (words)=> {
+            this.setState({
+                words: words,
+                word: words[this.state.count]
+            })
+        })
     }
 
     render() {
@@ -57,18 +61,20 @@ class WordConstruct extends Component {
             </Link>
 
             <h1 className={styles.greeting}>Welcome to Word - Constructor!</h1>
-            <div className={styles.wrapper}>
-                <div className={styles.block}>
-                    {this.state.word.split("").map(function (el, index) {
-                        return <div key={index}
-                                    className={styles.letter}>
-                            {el}
-                        </div>
-                    })}
+            {this.state.word?
+                <div className={styles.wrapper}>
+                    <div className={styles.block}>
+                        {this.state.word.text.split("").map(function (el, index) {
+                            return <div key={index}
+                                        className={styles.letter}>
+                                {el}
+                            </div>
+                        })}
+                    </div>
+                    <Button onClick={this.nextWord}>Next word</Button>
+                    <Button onClick={this.shake}>Shake letter</Button>
                 </div>
-                <Button onClick={this.nextWord}>Next word</Button>
-                <Button onClick={this.shake}>Shake letter</Button>
-            </div>
+                : <div className={styles.wrapper}>Loading...</div>}
 
         </div>
     }

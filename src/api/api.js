@@ -25,6 +25,13 @@ export function getWords() {
 	})
 }
 
+export function getWordsForUser() {
+	return sendRequest({
+		method: 'GET',
+		url: '/words/user'
+	})
+}
+
 export function getWord(id) {
 	return sendRequest({
 		method: 'GET',
@@ -36,7 +43,7 @@ export function createWord(word) {
 	return sendRequest({
 		method: 'POST',
 		url: `/words`,
-		body: word
+		body: JSON.stringify(word)
 	})
 }
 
