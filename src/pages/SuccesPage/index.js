@@ -1,0 +1,27 @@
+import React, {Component, PropTypes} from 'react';
+import {Link} from 'react-router-dom';
+import Button from '../../components/button';
+
+class SuccesPage extends Component {
+    static propTypes = {};
+
+    render() {
+        return <div><h1>Congratulations!</h1>
+            <br/>
+            <Link to={'/'}>
+                <Button>Go to main</Button>
+            </Link>
+            <Link to={'/admin/login'}>
+                <Button>Go to login</Button>
+            </Link>
+            <Link to={'/admin'}>
+                <Button>Go to admin</Button>
+            </Link>
+            <Link to={'/registration'}>
+                <Button>Go to Registration</Button>
+            </Link>
+        </div>
+    }
+}
+
+export default SuccesPage;

@@ -5,7 +5,8 @@ import Input from '../../components/input';
 import Button from '../../components/button';
 import {setItem, getItem} from '../../utils/storage';
 import removeIcon from '../../assets/images/close.png';
-import {createWord, getWords} from '../../api/api';
+import {createWord, getWords, deleteWord} from '../../api/api';
+
 
 function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
@@ -40,13 +41,8 @@ class AdminPanel extends Component {
         console.log(currWord);
 
         if(unique){
-            // let newArray = arr.concat(currWord);
-            // setItem("moderationWords", newArray);
-            // let input = document.querySelector("input");
-            // input.value = "";
             this.setState({
                 currentWord: ""
-                // moderationWords: newArray
             });
             createWord({text: currWord}).then((word)=>{
                 this.setState({
@@ -56,11 +52,20 @@ class AdminPanel extends Component {
         }else{
             return false;
         }
+    };
 
-
-        /*console.log(this.state.currentWord);
-         console.log(this.state.moderationWords);
-         console.log(newArray);*/
+    deleteWord = (currWord)=>{
+        console.log(currWord._id);
+        deleteWord(currWord._id).then(()=>{
+            let newArr = this.state.moderationWords.filter(el=> {
+                if (el._id !== currWord._id) {
+                    return el;
+                }
+            });
+            this.setState({
+                moderationWords: newArr
+            })
+        });
     };
 
     handleKeyPress = (event) => {
@@ -79,7 +84,7 @@ class AdminPanel extends Component {
     };
 
 
-    deleteWord = (currWord)=> {
+    /*deleteWord = (currWord)=> {
         //const currWord = e.currentTarget.parentNode.parentNode.childNodes[0].innerText;
         let arr = this.state.moderationWords;
         let newArr = arr.filter(el=> {
@@ -93,7 +98,9 @@ class AdminPanel extends Component {
             moderationWords: newArr
         });
         console.log(this.state.moderationWords);
-    };
+    };*/
+
+
 
     render() {
         let admin = 'Alex';
