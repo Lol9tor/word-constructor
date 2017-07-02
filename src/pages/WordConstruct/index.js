@@ -49,8 +49,8 @@ class WordConstruct extends Component {
             })
         }
         console.log(this.state.count);
-
     };
+
 
     /*nextWord = ()=> {
      let check = getItem('moderationWords').some((el)=> {

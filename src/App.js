@@ -27,7 +27,7 @@ class App extends React.Component {
                     <Route path="/admin/login" component={AdminLogin}/>
                     <Route exact path="/" component={WordConstruct}/>
                     <Route path="/registration" component={Registration}/>
-                    <Route path="/succes" component={SuccesPage}/>
+                    <Route path="/succesPage" component={SuccesPage}/>
                     <Route component={NotFound}/>
                 </Switch>
             </div>

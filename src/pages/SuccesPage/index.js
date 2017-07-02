@@ -1,13 +1,13 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router-dom';
 import Button from '../../components/button';
+import styles from './succesPage.css'
 
 class SuccesPage extends Component {
     static propTypes = {};
 
     render() {
-        return <div><h1>Congratulations!</h1>
-            <br/>
+        return <div>
             <Link to={'/'}>
                 <Button>Go to main</Button>
             </Link>
@@ -20,6 +20,9 @@ class SuccesPage extends Component {
             <Link to={'/registration'}>
                 <Button>Go to Registration</Button>
             </Link>
+            <br/>
+            <h1 className={styles.message}>Congratulations!</h1>
+
         </div>
     }
 }
