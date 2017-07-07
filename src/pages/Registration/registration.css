@@ -51,3 +51,7 @@
     width: 100px;
     align-self: center;
 }
+
+.invalid{
+    border: 1px solid red;
+}

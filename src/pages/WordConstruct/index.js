@@ -30,22 +30,22 @@ class WordConstruct extends Component {
         console.log(this.state.words);
         console.log(this.state.word.text);
         console.log(this.state.count);
+
+        if(this.state.count<this.state.words.length-1){
             this.setState({
-                word: this.state.words[this.state.count],
-                count: this.state.count + 1
-            })
+                count: this.state.count + 1,
+                word: this.state.words[this.state.count + 1],
+            });
+        }else{
+
+        }
     };
 
-    previousWord = ()=>{
-        if(this.state.count){
+    previousWord = ()=> {
+        if (this.state.count) {
             this.setState({
                 count: this.state.count - 1,
-                word: this.state.words[this.state.count]
-            })
-        }if(this.state.count === 0){
-            this.setState({
-                count: this.state.words.length-1,
-                word: this.state.words[this.state.count],
+                word: this.state.words[this.state.count - 1]
             })
         }
         console.log(this.state.count);
@@ -91,9 +91,7 @@ class WordConstruct extends Component {
             <Link to={'/registration'}>
                 <Button>Go to Registration</Button>
             </Link>
-            <Link to={'/succesPage'}>
-                <Button>Go to Succes Page</Button>
-            </Link>
+
 
             <h1 className={styles.greeting}>Welcome to Word - Constructor!</h1>
             {this.state.word ?
@@ -107,7 +105,9 @@ class WordConstruct extends Component {
                         })}
                     </div>
                     <Button onClick={this.previousWord}>Previous word</Button>
-                    <Button onClick={this.nextWord}>Next word</Button>
+                    <Button onClick={this.nextWord}> {this.state.count<this.state.words.length-1? "Next word":<Link to={'/succesPage'}>
+                        DONE
+                    </Link>} </Button>
                     <Button onClick={this.shake}>Shake</Button>
                 </div>
                 : <div className={styles.wrapper}>Loading...</div>}

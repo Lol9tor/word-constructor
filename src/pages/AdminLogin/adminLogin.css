@@ -22,6 +22,19 @@
 }
 
 .submitBtn{
-    width: 100px;
-    align-self: flex-start;
+    display: flex;
+    justify-content: space-between;
+}
+
+.socialNetwork{
+    align-self: center;
+
+
+}
+
+.socialImg{
+    width: 30px;
+    height: 30px;
+    margin: 2px;
+
 }

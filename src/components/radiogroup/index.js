@@ -8,7 +8,6 @@ class RadioGroup extends Component {
     render() {
 
         return <div>
-
             <input type="radio"
                    name={this.props.name}
                    value={this.props.value}

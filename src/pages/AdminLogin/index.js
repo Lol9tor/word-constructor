@@ -3,7 +3,15 @@ import {Link} from 'react-router-dom';
 import styles from './adminLogin.css';
 import Input from '../../components/input';
 import Button from '../../components/button';
+import validator from '../../utils/validator';
+import facebook from '../../assets/images/facebook2.png';
+import google from '../../assets/images/google2.png';
 
+
+const rules = {
+    password: ['required', {type: 'length', args: [2, 20]}],
+    email: ['required'],
+};
 class AdminLogin extends Component {
     static propTypes = {};
     state = {
@@ -14,15 +22,29 @@ class AdminLogin extends Component {
         }
     };
 
-    handleChange = (value, name)=> {
-        this.setState({
-            ...this.state.user,
-            [name]: value
-        });
-        let valid = new Validator;
+    handleChange = (value, name, e)=> {
+        let user = this.state.user;
+        for (let key in user) {
+            for (var i = 0; i < rules[key].length; i++) {
+                let type = rules[key][i].type || rules[key][i];
+                let args = [].concat(user[key], rules[key][i].args);
+                if (key === "confirmPassword") {
+                    args = [].concat(e.target["password"].value, e.target["confirmPassword"].value);
+                }
+                let check = validator[type].apply(null, args);
+                if (!check) {
+                    e.target[key].classList.add(styles.invalid);
+                } else {
+                    this.setState({
+                        ...this.state.user,
+                        [name]: value
+                    });
+                }
+            }
+        }
+
+
     };
-
-
 
 
     render() {
@@ -59,8 +81,12 @@ class AdminLogin extends Component {
                         <Button type="submit"
                                 id="submit"
                                 value="enter">
-                            Enter
+                            Login
                         </Button>
+                        <div className={styles.socialNetwork}>
+                            <img src={facebook} className={styles.socialImg}/>
+                            <img src={google} className={styles.socialImg}/>
+                        </div>
                     </div>
                 </form>
             </div>
