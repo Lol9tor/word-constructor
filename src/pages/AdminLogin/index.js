@@ -23,27 +23,11 @@ class AdminLogin extends Component {
     };
 
     handleChange = (value, name, e)=> {
-        let user = this.state.user;
-        for (let key in user) {
-            for (var i = 0; i < rules[key].length; i++) {
-                let type = rules[key][i].type || rules[key][i];
-                let args = [].concat(user[key], rules[key][i].args);
-                if (key === "confirmPassword") {
-                    args = [].concat(e.target["password"].value, e.target["confirmPassword"].value);
-                }
-                let check = validator[type].apply(null, args);
-                if (!check) {
-                    e.target[key].classList.add(styles.invalid);
-                } else {
-                    this.setState({
-                        ...this.state.user,
-                        [name]: value
-                    });
-                }
-            }
-        }
-
-
+        this.setState({
+            ...this.state.user,
+            [name]: value
+        });
+        console.log(this.state.user);
     };
 
 
@@ -67,16 +51,14 @@ class AdminLogin extends Component {
                                id="username"
                                name="email"
                                type="email"
-                               maxLength="25"
-                               minLength="5"/>
+                        />
                     </label>
                     <h2 className={styles.inputNames}>Password:</h2>
                     <Input onChange={this.handleChange}
                            id="password"
                            name="password"
                            type="password"
-                           maxLength="15"
-                           minLength="3"/>
+                    />
                     <div className={styles.submitBtn}>
                         <Button type="submit"
                                 id="submit"

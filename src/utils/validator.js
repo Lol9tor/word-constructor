@@ -9,7 +9,7 @@ const validator = {
         return !!value;
     },
     same: function (password, confirmPassword) {
-        return password === confirmPassword;
+        return !!confirmPassword && password === confirmPassword;
     }
 };
 

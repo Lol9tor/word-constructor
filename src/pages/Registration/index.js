@@ -58,41 +58,34 @@ class Registration extends Component {
             password: "",
             confirmPassword: "",
             country: "",
-            sex: ""
+            sex: "male"
         }
     };
 
     submitForm = (e)=> {
         e.preventDefault();
-        let user = this.state.user;
-        for (let key in user) {
-/*
-            e.target[key].classList.remove('invalid');
-*/
-            for (var i = 0; i < rules[key].length; i++) {
-                let type = rules[key][i].type || rules[key][i];
-                let args = [].concat(user[key], rules[key][i].args);
-                if (key === "confirmPassword") {
-                    args = [].concat(e.target["password"].value, e.target["confirmPassword"].value);
+
+        let inputNames = Object.keys(this.state.user);
+        inputNames.forEach((name, i, arr)=> {
+            rules[name].forEach((rule, i, arr)=> {
+                let type = rule.type || rule;
+                let args = [].concat(this.state.user[name], rule.args);
+                if (name === 'confirmPassword') {
+                    args = [].concat(e.target['password'].value, e.target[name].value)
                 }
                 let check = validator[type].apply(null, args);
                 if (!check) {
-                    if(key === "sex"){
-                        console.log(e.target[key]);
-
-                    }
-                   /* e.target[key].classList.add(styles.invalid);
-*/
+                    e.target[name].classList.add(styles.invalid);
                 }
-            }
-        }
-        console.log(user);
+            });
+        });
+        console.log(this.state.user);
     };
 
     handleFormChange = (value, name, e)=> {
         const user = {
-            ...this.state.user, // === firstName:" что-то", lastName:" что-то" из state.user (называется деструктуризация)
-            [name]: value //  При изменении LastName перезаписывается свйство LastName в user
+            ...this.state.user,
+            [name]: value
         };
 
         this.setState({
@@ -161,6 +154,7 @@ class Registration extends Component {
                             <h3 className={styles.genderItems}>Male</h3>
                             <RadioGroup name="sex"
                                         value="male"
+                                        checked ={true}
                                         onChange={this.handleSelect}
                             />
                         </div>
@@ -179,7 +173,6 @@ class Registration extends Component {
                             Save
                         </Button>
                     </div>
-
                 </form>
             </div>
         </div>
