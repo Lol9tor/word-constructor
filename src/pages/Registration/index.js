@@ -67,13 +67,17 @@ class Registration extends Component {
 
         let inputNames = Object.keys(this.state.user);
         inputNames.forEach((name, i, arr)=> {
+            e.target[name].classList.remove(styles.invalid);
+
             rules[name].forEach((rule, i, arr)=> {
                 let type = rule.type || rule;
                 let args = [].concat(this.state.user[name], rule.args);
                 if (name === 'confirmPassword') {
-                    args = [].concat(e.target['password'].value, e.target[name].value)
+                    args = [].concat(this.state.user.password,this.state.user[name])
                 }
                 let check = validator[type].apply(null, args);
+                console.log(name, check);
+
                 if (!check) {
                     e.target[name].classList.add(styles.invalid);
                 }
