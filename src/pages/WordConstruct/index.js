@@ -2,17 +2,38 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router-dom';
 import styles from './wordConstruct.css';
 import Button from '../../components/button';
-import {getWordsForUser, getWord}  from '../../api/api';
+import {getWordsForUser, getWord, getWords}  from '../../api/api';
+
 
 class WordConstruct extends Component {
     static propTypes = {};
     state = {
         count: 0,
+        localCollection: [],
         words: [],
         word: null
     };
 
+    componentWillMount() {
+        getWords().then((words)=> {
+            this.setState({
+                localCollection: words.reduce((temp, currWord, index)=> {
+                    temp[currWord._id] = currWord.text;
+                    return temp;
+                }, {})
+            })
+        });
+
+        getWordsForUser().then((words)=> {
+            this.setState({
+                words: words,
+                word: words[this.state.count]
+            })
+        });
+    }
+
     shake = ()=> {
+        console.log(this.state.word.text);
         let shakeWord = this.state.word.text.split("");
         shakeWord = shakeWord.sort(function () {
             return .5 - Math.random();
@@ -25,20 +46,25 @@ class WordConstruct extends Component {
         });
     };
 
-
     nextWord = ()=> {
-        console.log(this.state.words);
+        console.log(this.state.localCollection);
         console.log(this.state.word.text);
-        console.log(this.state.count);
 
-        if(this.state.count<this.state.words.length-1){
-            this.setState({
-                count: this.state.count + 1,
-                word: this.state.words[this.state.count + 1],
-            });
-        }else{
 
+        let currWord = this.state.word.text,
+            check = currWord === this.state.localCollection[this.state.word._id];
+        console.log(currWord, this.state.localCollection[this.state.word._id], check);
+        if (this.state.count < this.state.words.length - 1) {
+            if (check) {
+                this.setState({
+                    count: this.state.count + 1,
+                    word: this.state.words[this.state.count + 1],
+                });
+            } else {
+
+            }
         }
+
     };
 
     previousWord = ()=> {
@@ -50,35 +76,6 @@ class WordConstruct extends Component {
         }
         console.log(this.state.count);
     };
-
-
-    /*nextWord = ()=> {
-     let check = getItem('moderationWords').some((el)=> {
-     return (el === this.state.word);
-     });
-
-     if (check === true) {
-     console.log(this.state.count);
-     this.setState({
-     count: this.state.count+=1
-     });
-     console.log(this.state.count);
-
-     } else {
-     console.error("wrongWord");
-     }
-     };*/
-
-
-    componentWillMount() {
-        getWordsForUser().then((words)=> {
-            this.setState({
-                words: words,
-                word: words[this.state.count]
-            })
-        });
-    }
-
 
     render() {
         return <div>
@@ -92,7 +89,6 @@ class WordConstruct extends Component {
                 <Button>Go to Registration</Button>
             </Link>
 
-
             <h1 className={styles.greeting}>Welcome to Word - Constructor!</h1>
             {this.state.word ?
                 <div className={styles.wrapper}>
@@ -105,13 +101,13 @@ class WordConstruct extends Component {
                         })}
                     </div>
                     <Button onClick={this.previousWord}>Previous word</Button>
-                    <Button onClick={this.nextWord}> {this.state.count<this.state.words.length-1? "Next word":<Link to={'/succesPage'}>
-                        DONE
-                    </Link>} </Button>
+                    <Button onClick={this.nextWord}> {this.state.count < this.state.words.length - 1 ? "Next word" :
+                        <Link to={'/succesPage'}>
+                            DONE
+                        </Link>} </Button>
                     <Button onClick={this.shake}>Shake</Button>
                 </div>
                 : <div className={styles.wrapper}>Loading...</div>}
-
         </div>
     }
 }
