@@ -3,11 +3,15 @@ import {Link} from 'react-router-dom';
 import styles from './wordConstruct.css';
 import Button from '../../components/button';
 import {getWordsForUser, getWord, getWords}  from '../../api/api';
+import Line from 'rc-progress';
 
+const colorMap = ['#3FC7FA', '#85D262', '#FE8C6A'];
 
 class WordConstruct extends Component {
     static propTypes = {};
     state = {
+
+        color: '#3FC7FA',
         count: 0,
         localCollection: [],
         words: [],
@@ -100,6 +104,8 @@ class WordConstruct extends Component {
                             </div>
                         })}
                     </div>
+
+                    <Line percent={30} strokeWidth="4" strokeColor={'#3FC7FA'} />
                     <Button onClick={this.previousWord}>Previous word</Button>
                     <Button onClick={this.nextWord}> {this.state.count < this.state.words.length - 1 ? "Next word" :
                         <Link to={'/succesPage'}>
