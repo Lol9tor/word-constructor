@@ -39,6 +39,14 @@ export function getWord(id) {
 	})
 }
 
+export function checkWord(word) {
+	return sendRequest({
+		method: 'POST',
+		url: `/words/${word._id}/check`,
+		body: JSON.stringify(word)
+	})
+}
+
 export function createWord(word) {
 	return sendRequest({
 		method: 'POST',
