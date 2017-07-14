@@ -2,8 +2,9 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router-dom';
 import styles from './wordConstruct.css';
 import Button from '../../components/button';
-import {getWordsForUser, getWord, getWords}  from '../../api/api';
-import Line from 'rc-progress';
+import {getWordsForUser, getWord, getWords, checkWord}  from '../../api/api';
+import {Line} from 'rc-progress';
+import Counter from '../../components/counter';
 
 const colorMap = ['#3FC7FA', '#85D262', '#FE8C6A'];
 
@@ -13,21 +14,11 @@ class WordConstruct extends Component {
 
         color: '#3FC7FA',
         count: 0,
-        localCollection: [],
         words: [],
         word: null
     };
 
     componentWillMount() {
-        getWords().then((words)=> {
-            this.setState({
-                localCollection: words.reduce((temp, currWord, index)=> {
-                    temp[currWord._id] = currWord.text;
-                    return temp;
-                }, {})
-            })
-        });
-
         getWordsForUser().then((words)=> {
             this.setState({
                 words: words,
@@ -51,23 +42,20 @@ class WordConstruct extends Component {
     };
 
     nextWord = ()=> {
-        console.log(this.state.localCollection);
-        console.log(this.state.word.text);
 
+        checkWord(this.state.word).then((result)=> {
+            if (this.state.count < this.state.words.length - 1) {
+                if (result.isCorrect) {
+                    this.setState({
+                        count: this.state.count + 1,
+                        word: this.state.words[this.state.count + 1],
+                    });
+                } else {
 
-        let currWord = this.state.word.text,
-            check = currWord === this.state.localCollection[this.state.word._id];
-        console.log(currWord, this.state.localCollection[this.state.word._id], check);
-        if (this.state.count < this.state.words.length - 1) {
-            if (check) {
-                this.setState({
-                    count: this.state.count + 1,
-                    word: this.state.words[this.state.count + 1],
-                });
-            } else {
-
+                }
             }
-        }
+        });
+
 
     };
 
@@ -94,6 +82,15 @@ class WordConstruct extends Component {
             </Link>
 
             <h1 className={styles.greeting}>Welcome to Word - Constructor!</h1>
+            <Counter>
+                {`Answered: ${this.state.count} of ${this.state.words.length}`}
+            </Counter>
+            <div className={styles.progressLineWrapper}>
+                <Line className={styles.progressLine}
+                      percent={100/this.state.words.length*this.state.count}
+                      strokeWidth="1"
+                      strokeColor={'#3FC7FA'}/>
+            </div>
             {this.state.word ?
                 <div className={styles.wrapper}>
                     <div className={styles.block}>
@@ -104,8 +101,6 @@ class WordConstruct extends Component {
                             </div>
                         })}
                     </div>
-
-                    <Line percent={30} strokeWidth="4" strokeColor={'#3FC7FA'} />
                     <Button onClick={this.previousWord}>Previous word</Button>
                     <Button onClick={this.nextWord}> {this.state.count < this.state.words.length - 1 ? "Next word" :
                         <Link to={'/succesPage'}>

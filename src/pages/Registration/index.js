@@ -142,6 +142,12 @@ class Registration extends Component {
                         </ErrorMessage>
                         <Input type="text" name="firstName" onChange={this.handleFormChange}/>
                     </label>
+
+
+
+
+
+
                     <label>
                         <h2 className={styles.inputNames}>Last Name</h2>
                         <ErrorMessage
