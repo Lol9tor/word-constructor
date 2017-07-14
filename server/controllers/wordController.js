@@ -53,6 +53,23 @@ module.exports = {
 			if (err) res.send(err);
 			res.json({ message: 'Word successfully deleted' });
 		});
+	},
+	checkWord: function (req, res) {
+		Word.findById(req.params.wordId, function(err, word) {
+			if (err) res.send(err);
+			if (!req.body.text){
+				res.status(403);
+				res.send({error: 'Field "text" is required'});
+				return false;
+			}
+			if (word.text === req.body.text){
+				res.status(200);
+				res.json({isCorrect: true, _id: word._id});
+			} else {
+				res.status(200);
+				res.json({isCorrect: false, _id: word._id});
+			}
+		});
 	}
 };
 

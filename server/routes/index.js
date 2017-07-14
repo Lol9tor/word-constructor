@@ -10,5 +10,6 @@ router.post('/words', wordController.create);
 router.get('/words/:wordId', wordController.getOne);
 router.put('/words/:wordId', wordController.update);
 router.delete('/words/:wordId', wordController.delete);
+router.post('/words/:wordId/check', wordController.checkWord);
 
 module.exports = router;
