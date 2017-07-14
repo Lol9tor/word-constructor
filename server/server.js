@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
+const Word = require('./models/word');
+const User = require('./models/user');
 const routes = require('./routes');
 const {PORT, DATABASE_URL} = require('./config/config');
 
