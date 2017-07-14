@@ -6,6 +6,7 @@ import Button from '../../components/button';
 import Select from '../../components/select';
 import RadioGroup from '../../components/radiogroup';
 import validator from '../../utils/validator';
+import ErrorMessage from '../../components/errorMessage';
 
 const options = [
     {
@@ -65,7 +66,8 @@ class Registration extends Component {
     submitForm = (e)=> {
         e.preventDefault();
 
-        let inputNames = Object.keys(this.state.user);
+        let inputNames = Object.keys(this.state.user),
+            errorMessageNames =
         inputNames.forEach((name, i, arr)=> {
             e.target[name].classList.remove(styles.invalid);
 
@@ -86,6 +88,10 @@ class Registration extends Component {
         console.log(this.state.user);
     };
 
+    addError = (name)=>{
+
+    };
+
     handleFormChange = (value, name, e)=> {
         const user = {
             ...this.state.user,
@@ -103,6 +109,9 @@ class Registration extends Component {
         this.handleFormChange(e.currentTarget.value, e.currentTarget.name)
     };
 
+    showMe =(e)=>{
+      console.log(e.target.parentNode);
+    };
 
     render() {
         return <div>
@@ -126,23 +135,47 @@ class Registration extends Component {
                 >
                     <label>
                         <h2 className={styles.inputNames}>Name</h2>
+                        <ErrorMessage
+                            name="Name"
+                            className={`${styles.errorMessage} ${styles.hide}`}
+                            onClick={this.showMe}>
+                        </ErrorMessage>
                         <Input type="text" name="firstName" onChange={this.handleFormChange}/>
                     </label>
                     <label>
                         <h2 className={styles.inputNames}>Last Name</h2>
+                        <ErrorMessage
+                            name="Last Name"
+                            className={`${styles.errorMessage} ${styles.hide}`}
+                            onClick={this.showMe}>
+                        </ErrorMessage>
                         <Input type="text" name="lastName" onChange={this.handleFormChange}/>
                     </label>
                     <label>
                         <h2 className={styles.inputNames}>Email</h2>
+                        <ErrorMessage
+                            name="Email"
+                            className={`${styles.errorMessage} ${styles.hide}`}
+                            onClick={this.showMe}>
+                        </ErrorMessage>
                         <Input type="email" name="email" onChange={this.handleFormChange}/>
                     </label>
                     <label>
-                        <h2 className={`${styles.inputNames} ${styles.inputWrapper}`}>
-                            Password</h2> {/*few styles add (example)*/}
+                        <h2 className={`${styles.inputNames} ${styles.inputWrapper}`}>Password</h2> {/*few styles add (example)*/}
+                        <ErrorMessage
+                            name="Password"
+                            className={`${styles.errorMessage} ${styles.hide}`}
+                            onClick={this.showMe}>
+                        </ErrorMessage>
                         <Input type="password" name="password" onChange={this.handleFormChange}/>
                     </label>
                     <label>
                         <h2 className={styles.inputNames}>Confirm password</h2>
+                        <ErrorMessage
+                            name="Confirm Password"
+                            className={`${styles.errorMessage}`}
+                            onClick={this.showMe}>
+                        </ErrorMessage>
                         <Input type="password" name="confirmPassword" onChange={this.handleFormChange}/>
                     </label>
                     <div className={styles.countrySelect}>
