@@ -36,9 +36,8 @@ class AdminPanel extends Component {
         }
         let currWord = this.state.currentWord.toLowerCase();
         let unique = arr.every((el)=> {
-            return (el !== currWord);
+            return (el.text !== currWord);
         });
-        console.log(currWord);
 
         if(unique){
             this.setState({
@@ -103,7 +102,7 @@ class AdminPanel extends Component {
 
 
     render() {
-        let admin = 'Alex';
+        const admin = 'Alex';
         return <div>
             <Link to={'/'}>
                 <Button>Go to main</Button>
