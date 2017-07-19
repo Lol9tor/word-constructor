@@ -5,6 +5,9 @@ import Button from '../../components/button';
 import {getWordsForUser, getWord, getWords, checkWord}  from '../../api/api';
 import {Line} from 'rc-progress';
 import Counter from '../../components/counter';
+import WordWrapper from '../../components/wordWrapper';
+import {arrayMove} from 'react-sortable-hoc';
+
 
 const colorMap = ['#3FC7FA', '#85D262', '#FE8C6A'];
 
@@ -21,7 +24,7 @@ class WordConstruct extends Component {
         getWordsForUser().then((words)=> {
             this.setState({
                 words: words,
-                word: words[this.state.count] || 'The word collection is empty, please add words'
+                word: words[this.state.count] || ""
             })
         });
     }
@@ -68,6 +71,14 @@ class WordConstruct extends Component {
         console.log(this.state.count);
     };
 
+    onSortEnd = ({oldIndex, newIndex}) => {
+        const wordArray = this.state.word.text.split(""),
+            text = arrayMove(wordArray, oldIndex, newIndex).join("");
+        this.setState({
+            word: Object.assign({}, this.state.word, {text: text}),
+        });
+    };
+
     render() {
         return <div>
             <Link to={'/admin/login'}>
@@ -81,25 +92,24 @@ class WordConstruct extends Component {
             </Link>
 
             <h1 className={styles.greeting}>Welcome to Word - Constructor!</h1>
-            <Counter>
-                {`Answered: ${this.state.count} of ${this.state.words.length}`}
-            </Counter>
-            <div className={styles.progressLineWrapper}>
-                <Line className={styles.progressLine}
-                      percent={100/this.state.words.length*this.state.count}
-                      strokeWidth="1"
-                      strokeColor={'#3FC7FA'}/>
-            </div>
+            {this.state.word && <div>
+                <Counter>
+                    {`Answered: ${this.state.count} of ${this.state.words.length}`}
+                </Counter>
+                <div className={styles.progressLineWrapper}>
+                    <Line className={styles.progressLine}
+                          percent={100/this.state.words.length*this.state.count}
+                          strokeWidth="1"
+                          strokeColor={'#3FC7FA'}/>
+                </div>
+            </div>}
             {this.state.word ?
                 <div className={styles.wrapper}>
-                    <div className={styles.block}>
-                        {this.state.word.text.split("").map(function (el, index) {
-                            return <div key={index}
-                                        className={styles.letter}>
-                                {el}
-                            </div>
-                        })}
-                    </div>
+                    <WordWrapper
+                        word={this.state.word}
+                        axis='x'
+                        onSortEnd={this.onSortEnd}
+                    />
                     <Button onClick={this.previousWord}>Previous word</Button>
                     <Button onClick={this.nextWord}>
                         {this.state.count < this.state.words.length - 1 ?
@@ -109,9 +119,9 @@ class WordConstruct extends Component {
                             </Link>} </Button>
                     <Button onClick={this.shake}>Shake</Button>
                 </div>
-                : `${this.state.word === 'The word collection is empty, please add words'}`?
-            <div className={styles.greeting}><h2>The word collection is empty, please add words</h2></div>:
-            <div className={styles.wrapper}>Loading...</div>}
+                : this.state.word === '' ?
+                <div className={styles.greeting}><h2>The word collection is empty, please add words</h2></div> :
+                <div className={styles.wrapper}>Loading...</div>}
         </div>
     }
 }

@@ -1,12 +1,24 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router-dom';
+import {createWord, getWords, deleteWord} from '../../api/api';
+import validator from '../../utils/validator';
 import styles from './adminPanel.css';
+import removeIcon from '../../assets/images/close.png';
 import Input from '../../components/input';
 import Button from '../../components/button';
-import {setItem, getItem} from '../../utils/storage';
-import removeIcon from '../../assets/images/close.png';
-import {createWord, getWords, deleteWord} from '../../api/api';
+import ErrorMessage from '../../components/errorMessage';
 
+
+const rules = ['required',
+    'isLatinLetter',
+    {type: 'length', args: [5, 12]}];
+const messages = {
+    required: 'Please enter word',
+/*
+    length: `Length of word must be from ${rules[length - 1].args[0]} to ${rules[length - 1].args[1]}`,
+*/
+    isLatinLetter: 'Word must consist only of Latin letters'
+};
 
 function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
@@ -17,7 +29,9 @@ class AdminPanel extends Component {
     state = {
         moderationWords: [],
         currentWord: "",
-        count: 0
+        count: 0,
+        error: false,
+        errorMessage: null
     };
 
     componentWillMount() {
@@ -32,30 +46,53 @@ class AdminPanel extends Component {
     handleClick = ()=> {
         let arr = this.state.moderationWords;
         if (this.state.currentWord === "") {
+            this.setState({
+                error: true,
+                errorMessage: messages['required']
+            });
             return false;
         }
-        let currWord = this.state.currentWord.toLowerCase();
+        let currWord = this.state.currentWord.toLowerCase().trim();
         let unique = arr.every((el)=> {
             return (el.text !== currWord);
         });
 
-        if(unique){
+        let check = null;
+
+        rules.forEach((rule, i, arr)=> {
+
+            let type = rule.type || rule;
+            let args = currWord;
+
+            args = [].concat(currWord, rule.args);
+            check = validator[type].apply(null, args);
+            if (!check) {
+                this.setState({
+                    error: true,
+                    errorMessage: messages[type]
+                });
+                let args2= ${rules[length - 1].args[0]}
+                console.log(args2);
+            }
+        });
+
+        if (unique && check) {
             this.setState({
                 currentWord: ""
             });
-            createWord({text: currWord}).then((word)=>{
+            createWord({text: currWord}).then((word)=> {
                 this.setState({
                     moderationWords: this.state.moderationWords.concat(word)
                 })
             });
-        }else{
+        } else {
             return false;
         }
     };
 
-    deleteWord = (currWord)=>{
+    deleteWord = (currWord)=> {
         console.log(currWord._id);
-        deleteWord(currWord._id).then(()=>{
+        deleteWord(currWord._id).then(()=> {
             let newArr = this.state.moderationWords.filter(el=> {
                 if (el._id !== currWord._id) {
                     return el;
@@ -74,7 +111,10 @@ class AdminPanel extends Component {
     };
 
     wordChange = (text)=> {
-        this.setState({currentWord: text});
+        this.setState({
+            currentWord: text,
+            error: false
+        });
     };
 
     checkDisabled = ()=> {
@@ -84,21 +124,20 @@ class AdminPanel extends Component {
 
 
     /*deleteWord = (currWord)=> {
-        //const currWord = e.currentTarget.parentNode.parentNode.childNodes[0].innerText;
-        let arr = this.state.moderationWords;
-        let newArr = arr.filter(el=> {
-            if (el !== currWord) {
-                return el;
-            }
-        });
-        console.log(newArr);
-        setItem("moderationWords", newArr);
-        this.setState({
-            moderationWords: newArr
-        });
-        console.log(this.state.moderationWords);
-    };*/
-
+     //const currWord = e.currentTarget.parentNode.parentNode.childNodes[0].innerText;
+     let arr = this.state.moderationWords;
+     let newArr = arr.filter(el=> {
+     if (el !== currWord) {
+     return el;
+     }
+     });
+     console.log(newArr);
+     setItem("moderationWords", newArr);
+     this.setState({
+     moderationWords: newArr
+     });
+     console.log(this.state.moderationWords);
+     };*/
 
 
     render() {
@@ -152,8 +191,12 @@ class AdminPanel extends Component {
                                onChange={this.wordChange}
                                value={this.state.currentWord}
                                onKeyPress={this.handleKeyPress}
-                               maxLenght="27"
+                               maxLenght="20"
                         />
+                        { this.state.error && <ErrorMessage>
+                            {this.state.errorMessage}
+                        </ErrorMessage>}
+
                     </div>
 
                     <Button onClick={this.handleClick}

@@ -3,19 +3,14 @@ import styles from './errorMessage.css';
 
 
 
-class Error extends Component{
+class ErrorMessage extends Component{
     render(){
         return <span
-        name={this.props.name}
-        className={this.props.className}
-        onClick={this.props.onClick}
-        >
-            {
-                `Please check your ${this.props.name}`
-            }
+        className={styles.errorMessage}>
+            {this.props.children}
         </span>
     }
 
 }
 
-export default Error;
+export default ErrorMessage;

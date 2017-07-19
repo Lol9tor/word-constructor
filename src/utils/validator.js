@@ -10,7 +10,12 @@ const validator = {
     },
     same: function (password, confirmPassword) {
         return !!confirmPassword && password === confirmPassword;
-    }
+    },
+    isLatinLetter: function (value) {
+        return /^[a-zA-Z]*$/.test(value);
+    },
+
+
 };
 
 export default validator;

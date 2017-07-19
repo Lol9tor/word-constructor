@@ -66,8 +66,8 @@ class Registration extends Component {
     submitForm = (e)=> {
         e.preventDefault();
 
-        let inputNames = Object.keys(this.state.user),
-            errorMessageNames =
+        let inputNames = Object.keys(this.state.user);
+
         inputNames.forEach((name, i, arr)=> {
             e.target[name].classList.remove(styles.invalid);
 
