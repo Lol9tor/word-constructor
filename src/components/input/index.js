@@ -34,7 +34,7 @@ class Input extends Component {
 
             <input
                 type={this.props.type || "text"}
-                className={styles.inputStyle}
+                className={`${styles.inputStyle} ${this.props.className}`}
                 onChange={this.handleChange}
                 onBlur={this.blurChange}
                 onKeyPress={this.keyPress}

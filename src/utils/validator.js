@@ -3,7 +3,7 @@ const validator = {
         return !!value;
     },
     length: function (value, from, to) {
-        return from < value.length && value.length < to;
+        return from <= value.length && value.length <= to;
     },
     selected: function (value) {
         return !!value;

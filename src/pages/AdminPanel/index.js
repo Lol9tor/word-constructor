@@ -14,9 +14,7 @@ const rules = ['required',
     {type: 'length', args: [5, 12]}];
 const messages = {
     required: 'Please enter word',
-/*
-    length: `Length of word must be from ${rules[length - 1].args[0]} to ${rules[length - 1].args[1]}`,
-*/
+    length: `Length of word must be from ${rules[rules.length - 1].args[0]} to ${rules[rules.length - 1].args[1]} symbols`,
     isLatinLetter: 'Word must consist only of Latin letters'
 };
 
@@ -42,9 +40,12 @@ class AdminPanel extends Component {
         })
     }
 
-
     handleClick = ()=> {
-        let arr = this.state.moderationWords;
+        let arr = this.state.moderationWords,
+            input = document.getElementsByName('word');
+        console.log(input.value);
+
+
         if (this.state.currentWord === "") {
             this.setState({
                 error: true,
@@ -57,24 +58,23 @@ class AdminPanel extends Component {
             return (el.text !== currWord);
         });
 
-        let check = null;
-
-        rules.forEach((rule, i, arr)=> {
-
-            let type = rule.type || rule;
-            let args = currWord;
-
+        let errorMessages="";
+        let check = rules.every((rule, i, arr)=> {
+            let type = rule.type || rule,
             args = [].concat(currWord, rule.args);
-            check = validator[type].apply(null, args);
-            if (!check) {
-                this.setState({
-                    error: true,
-                    errorMessage: messages[type]
-                });
-                let args2= ${rules[length - 1].args[0]}
-                console.log(args2);
+            let isValid = validator[type].apply(null, args);
+            if(!isValid){
+                errorMessages = messages[type];
             }
+            return isValid;
         });
+
+        if (!check) {
+            this.setState({
+                error: true,
+                errorMessage: errorMessages
+            });
+        }
 
         if (unique && check) {
             this.setState({
@@ -192,6 +192,7 @@ class AdminPanel extends Component {
                                value={this.state.currentWord}
                                onKeyPress={this.handleKeyPress}
                                maxLenght="20"
+                               className={this.state.error&& styles.invalid}
                         />
                         { this.state.error && <ErrorMessage>
                             {this.state.errorMessage}

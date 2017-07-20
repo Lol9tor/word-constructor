@@ -71,6 +71,11 @@
     align-content: space-between;
 }
 
+.invalid{
+    border: 1px solid red !important;
+    outline: none;
+}
+
 
 
 

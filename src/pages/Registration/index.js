@@ -88,10 +88,6 @@ class Registration extends Component {
         console.log(this.state.user);
     };
 
-    addError = (name)=>{
-
-    };
-
     handleFormChange = (value, name, e)=> {
         const user = {
             ...this.state.user,
